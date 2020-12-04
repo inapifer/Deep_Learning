@@ -15,10 +15,22 @@ def relu(Z):
     """A function that returns max(z,0) of a number"""
     return np.maximum(0,Z)
 
+def derivative_relu(Z):
+    """A function that returns the derivative of the relu function"""
+    Drelu = Z.copy()
+    Drelu[Drelu>0] = 1
+    Drelu[Drelu<0] = 0
+
+    return Drelu
+
 def sigmoid(Z):
-    """returns the value of a sigmoid function"""
+    """returns the value of a sigmoid function in a matrix"""
     return (1/(1 + np.exp(Z)))
 
+def derivative_sigmoid(Z):
+    """Returns the derivatives of the sigmoid function in a matrix
+    (Scalars)"""
+    return sigmoid(Z)*(1-sigmoid(Z))
 
 def activation_functions(Z, activation_name):
     """Doing the activation function of relu and sigmoid"""
