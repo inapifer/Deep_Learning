@@ -37,6 +37,7 @@ def derivative_cost_logistic(Y_hat, Y):
     respect to Y_hat, which is the same as A[L], i.e., the activation
     of the last layer considering we use the logistic regression
     function."""
+    
     dA_L = -Y/Y_hat + (1-Y)/(1-Y_hat)
 
     return dA_L
