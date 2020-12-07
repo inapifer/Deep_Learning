@@ -54,7 +54,7 @@ def derivative_activation(Z, activation_name):
         raise Exception("The only activation functions\
                          available are relu ans sigmoid")
 
-def forward_iteration(W, A_prev, b, activation_name):
+def forward_activation(W, A_prev, b, activation_name):
     """Doing the linear activation and the forward activation in
     one step."""
     Z = linear_activation(W, A_prev, b)
@@ -100,6 +100,8 @@ def derivative_cost_logistic(Y_hat, Y):
     respect to Y_hat, which is the same as A[L], i.e., the activation
     of the last layer considering we use the logistic regression
     function."""
+
+    assert Y_hat.shape == Y.shape, "Dimensions of Y and Y_hat must be the same"
 
     dA_L = -Y/Y_hat + (1-Y)/(1-Y_hat)
 
