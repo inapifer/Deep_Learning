@@ -63,6 +63,38 @@ def forward_activation(W, A_prev, b, activation_name):
     return A
 
 
+# Once the values have gone throught the network forward, I calculate
+# the loss function.
+# I will start the network just considering a binary classification problem.
+def binary_class_loss_function(Y_hat, Y):
+    # I make sure first that the dimensions of n(Number of features) and m(number of samples) are the same
+    # in the results and the labels
+    n, m = np.shape(Y)
+    n_hat, m_hat = np.shape(Y_hat)
+    assert(n==n_hat and m==m_hat)
+
+    L = -(Y*(np.log(Y_hat)) + (1-Y)*(np.log(1-Y_hat)))
+
+    return L
+
+# Now I develop the cost function which will consider the loss functions
+
+def cost_function(Y_hat, Y, name_loss='binary_class'):
+    """This function calculates the cost function of all the samples
+    given its name_loss. By default I will say it's binaryclassification."""
+
+    available_names = ['binary_class']
+    #I consider the name of the loss function.
+    if name_loss.lower() == 'binary_class':
+        L = binary_class_loss_function(Y_hat, Y)
+        n, m = np.shape(L)
+        C = 1/m*np.sum(L)
+        return C
+    else:
+        raise Exception("The only available functions are: " \
+        + str(available_names))
+
+
 def derivative_cost_logistic(Y_hat, Y):
     """It returns the value of the derivatives of the cost function
     respect to Y_hat, which is the same as A[L], i.e., the activation
