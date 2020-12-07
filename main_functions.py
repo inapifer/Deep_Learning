@@ -54,7 +54,7 @@ def derivative_activation(Z, activation_name):
         raise Exception("The only activation functions\
                          available are relu ans sigmoid")
 
-def forward_activation(W, A_prev, b, activation_name):
+def forward_iteration(W, A_prev, b, activation_name):
     """Doing the linear activation and the forward activation in
     one step."""
     Z = linear_activation(W, A_prev, b)
@@ -112,10 +112,10 @@ def derivatives_Z(dA, Z, activation_name):
     # I calculate the derivative of the activation function in this
     #layer
     d_activation = derivative_activation(Z, activation_name)
-
+    dZ = dA*d_activation
     # Now I make the (non-matricial) product of the derivatives
     # of the activation and dA.
-    return dA*d_activation
+    return dZ
 
 def derivatives_W(dZ, A_prev):
     """Returns the derivatives of the weights in the layer l"""
@@ -124,6 +124,7 @@ def derivatives_W(dZ, A_prev):
     m = dZ.shape[1]
     dW = 1/m * np.matmul(dZ, A_prev.T)
     return dW
+
 def derivatives_b(dZ):
     """Returns the derivatives of the biases in certain layers."""
     m = dZ.shape[1]
@@ -135,3 +136,17 @@ def derivatives_dA_prev(W, dZ):
     before this one."""
     dA_prev = np.matmul(W.T, dZ)
     return dA_prev
+
+def backward_iteration(dA, Z, activation_name, A_prev, W):
+    """It does an iteration of the backpropagation algorithm in certain
+    layer. It get dZ, dW, db and dA_prev."""
+    dZ = derivatives_Z(dA,Z, activation_name)
+    dW = derivatives_W(dZ, A_prev)
+    db = derivatives_b(dZ)
+    dA_prev = derivatives_dA_prev(W, dZ)
+
+    #Now it is necessary to return the four values, dW and db because with them
+    #we can update the values of the weights and biases of the network to improve
+    # performance, and dZ and dA_prev because we have to use them in the layer before
+
+    return dZ, dW, db, dA_prev
