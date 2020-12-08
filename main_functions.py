@@ -81,7 +81,7 @@ def binary_class_loss_function(Y_hat, Y):
 
 def cost_function(Y_hat, Y, name_loss='binary_class'):
     """This function calculates the cost function of all the samples
-    given its name_loss. By default I will say it's binaryclassification."""
+    given its name_loss. By default I will say it's binary classification."""
 
     available_names = ['binary_class']
     #I consider the name of the loss function.
