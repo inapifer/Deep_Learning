@@ -152,10 +152,3 @@ def backward_iteration(dA, Z, activation_name, A_prev, W):
     # performance, and dZ and dA_prev because we have to use them in the layer before
 
     return dZ, dW, db, dA_prev
-
-def reverse_activation_names(activation_names):
-    """This function takes the activation names of the network, reverse
-    their order and returns a list with the names and the number of the layers
-    in tuples."""
-    reversed_activation_names = list(reversed(list(enumerate(activation_names))))
-    return reversed_activation_names
