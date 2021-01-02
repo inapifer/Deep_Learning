@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import numpy as np
+from main_functions_classicNN import *
 
 def get_n_H(n_H_prev, f, stride=1, pad=0):
     """Returns the height of the next layer after considering the height of the
@@ -33,3 +34,12 @@ def basic_convolution(portion, filter):
 
      conv_operation = (portion * filter).sum()
      return conv_operation
+
+def linear_and_forward_activation(W, A_prev, b, activation_name):
+    """Doing the linear activation and the forward activation in
+    one step."""
+
+    Z = linear_activation(W, A_prev, b)
+    A = activation_functions(Z, activation_name)
+
+    return Z, A
