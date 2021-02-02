@@ -18,7 +18,7 @@ def get_n_H(n_H_prev, f, stride=1, padding='valid'):
     n_H = int((n_H_prev + 2*pad - f)/stride + 1)
     return n_H
 
-def get_n_W(n_W_prev, f, stride=1, pad=0):
+def get_n_W(n_W_prev, f, stride=1, padding='valid'):
     """Returns the height of the next layer after considering the height of the
     previous one, the size of the filter f, the pad applied to the input and the
     stride."""
