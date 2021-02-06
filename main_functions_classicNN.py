@@ -27,16 +27,17 @@ def sigmoid(Z):
     """returns the value of a sigmoid function in a matrix"""
     return (1/(1 + np.exp(Z)))
 
-def softmax(Z):
-    """Returns the value of a softmax function"""
-
-    T = np.exp(Z)
-    return (T/np.sum(T))
 
 def derivative_sigmoid(Z):
     """Returns the derivatives of the sigmoid function in a matrix
     (Scalars)"""
     return sigmoid(Z)*(1-sigmoid(Z))
+
+def softmax(Z):
+    """Returns the value of a softmax function"""
+
+    T = np.exp(Z)
+    return (T/np.sum(T, axis=0))
 
 
 def activation_functions(Z, activation_name):
