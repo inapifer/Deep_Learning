@@ -39,6 +39,31 @@ def softmax(Z):
     T = np.exp(Z)
     return (T/np.sum(T, axis=0))
 
+def softmax_grad_sample(s):
+    # Take the derivative of softmax element w.r.t the each logit which is usually Wi * X
+    # input s is softmax value of the original input x.
+    # s.shape = (1, n)
+    # i.e. s = np.array([0.3, 0.7]), x = np.array([0, 1])
+
+    # initialize the 2-D jacobian matrix.
+    jacobian_m = np.diag(s)
+
+    for i in range(len(jacobian_m)):
+        for j in range(len(jacobian_m)):
+            if i == j:
+                jacobian_m[i][j] = s[i] * (1-s[i])
+            else:
+                jacobian_m[i][j] = -s[i]*s[j]
+    return jacobian_m
+
+def softmax_grad(Z):
+    """Takes the input of all the samples and get the Jacobian of the
+    softmax.
+    Z shape ---->(number_features, m)"""
+
+    return np.apply_along_axis(softmax_grad_sample, 1, Z.T)
+
+
 
 def activation_functions(Z, activation_name):
     """Doing the activation function of relu and sigmoid"""
