@@ -71,10 +71,11 @@ def activation_functions(Z, activation_name):
         return relu(Z)
     elif activation_name.lower() == 'sigmoid':
         return sigmoid(Z)
+    elif activation_name.lower() == 'softmax':
+        return softmax(Z)
     else:
         raise Exception("The only activation functions available\
-                         are relu and sigmoid")
-
+                         are relu, sigmoid and softmax")
 
 def derivative_activation(Z, activation_name):
     """Doing the derivative of the activation functions."""
@@ -82,9 +83,11 @@ def derivative_activation(Z, activation_name):
         return derivative_relu(Z)
     elif activation_name.lower() == 'sigmoid':
         return derivative_sigmoid(Z)
+    elif activation_name.lower() == 'softmax':
+        return softmax_grad(Z)
     else:
         raise Exception("The only activation functions\
-                         available are relu ans sigmoid")
+                         available are relu, sigmoid and softmax")
 
 def forward_activation(W, A_prev, b, activation_name):
     """Doing the linear activation and the forward activation in
